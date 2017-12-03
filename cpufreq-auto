@@ -1,0 +1,37 @@
+#!/bin/bash
+
+
+low=800mhz
+high=2300mhz
+
+
+ncpu=3
+
+alto(){
+	echo ""
+}
+
+baixo(){
+	echo ""
+}
+
+cpu(){
+	ccpu=0
+	while [ $ccpu <= $ncpu ]; do
+		cpufreq-set -c $cpu $set $clock;
+		ccpu=$ccpu + 1
+	done
+}
+
+manual(){
+	cpufreq-set -c 0 -d $low
+	cpufreq-set -c 1 -d $low
+	cpufreq-set -c 2 -d $low
+	cpufreq-set -c 3 -d $low
+	cpufreq-set -c 0 -u $high
+	cpufreq-set -c 1 -u $high
+	cpufreq-set -c 2 -u $high
+	cpufreq-set -c 3 -u $high	
+}
+
+manual
