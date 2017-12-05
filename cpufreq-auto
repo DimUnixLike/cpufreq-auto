@@ -5,7 +5,7 @@ clockhigh=2300mhz #Maximo que a cpu pode chegar
 declare -i numerocpu=3 #Começa contar de 0 o numero de nucleos
 
 GETDADOS(){
-		zenity --entry --text "Digite o numero de Threads de sua CPU: (Ex: 2, 4, 8)" --title "cpuinfo-auto"
+		numerocpu=$(zenity --entry --text "Digite o numero de Threads de sua CPU: (Ex: 2, 4, 8)" --title "cpuinfo-auto")
 		numerocpu+=-1 #o cpufreq-set começa a contar da CPU 0
 		echo "Digite o clock alto desejado: (Ex: 2500mhz)"
 		read clockhigh
