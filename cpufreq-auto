@@ -4,14 +4,9 @@ clocklow=800mhz #Clock minimo para cpu rodar
 clockhigh=2300mhz #Maximo que a cpu pode chegar
 declare -i numerocpu=4 #Começa contar de 0 o numero de nucleos
 
-AUTODADOS(){
-    cpufreq-info > cpu.info
+AUTODADOS(){    
     numerocpu=$(cpufreq-info | grep -c "limites") # -c conta o numero de linhas no grep / FUNCIONANDO
-    #clocklow=$(cat cpu.info | grep "") # deve recupear o clock minimo da cpu
-    #clockhigh=$(cat cpu.info | grep "") # deve recuperar o clock maximo da cpu
-    rm cpu.info
     GETLOWHIGH
-    echo $numerocpu $clocklow $clockhigh
 }
 
 GETLOWHIGH(){
@@ -31,7 +26,7 @@ GETLOWHIGH(){
   done
 }
 
-GETDADOS(){
+GETDADOS(){ #never used yet
 	numerocpu=$(zenity --entry --text "Digite o numero de Threads de sua CPU: (Ex: 2, 4, 8)" --title "cpuinfo-auto")
 	clocklow=$(zenity --entry --text "Digite o clock minimo desejado: (Ex: 800mhz)" --title "cpuinfo-auto")
 	clockhigh=$(zenity --entry --text "Digite o clock maximo desejado: (Ex: 2500mhz)" --title "cpuinfo-auto")
