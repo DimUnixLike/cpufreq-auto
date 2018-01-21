@@ -1,8 +1,24 @@
 #!/bin/bash
 
-declare -i clocklow=800000 #Clock minimo para cpu rodar
-declare -i clockhigh=2000000 #Maximo que a cpu pode chegar
-declare -i numerocpu=4 #Começa contar de 0 o numero de nucleos
+################################################################################
+#####	This program will get info from "sensors" and "cpufreq-info"
+#####	On finish version u will put "temp" that CPU will try to work at
+##### For now... you need type how many Hertz on numbers to downclock
+#####	*Not Finished yet (and maybe never)
+#####	**Use only if you know what are u doing .ALFA STAGE
+################################################################################
+
+#Começar a corrigir isso pra automatico ou procentagem na proxima vez
+declare -i underclock=1500000 #Clock Abaixo desejado por quanto nao é automatico
+
+declare -i clocklow=0 #Clock minimo para cpu rodar
+declare -i clockhigh=0 #Maximo que a cpu pode chegar
+declare -i numerocpu=0 #Começa contar de 0 o numero de nucleos
+
+GETUNDER(){
+  echo "Digite o underclock desejado: (Ex: 1500000 (for 1.5ghz to underclock the cpu))"
+  read underclock
+}
 
 AUTODADOS(){
     cpufreq-info > cpu.info
@@ -18,15 +34,15 @@ AUTODADOS(){
           contador+=1
           clocklow=$clocks
       else
-          clockhigh=$clocks-1400000 #editar a partir daqui
+          clockhigh=$clocks-$underclock
       fi
     done
 }
 
-GETDADOS(){ #NEVER USED YET
-	numerocpu=$(zenity --entry --text "Digite o numero de Threads de sua CPU: (Ex: 2, 4, 8)" --title "cpuinfo-auto")
-	clocklow=$(zenity --entry --text "Digite o clock minimo desejado: (Ex: 800mhz)" --title "cpuinfo-auto")
-	clockhigh=$(zenity --entry --text "Digite o clock maximo desejado: (Ex: 2500mhz)" --title "cpuinfo-auto")
+SENSORS(){
+  sensor=$(sensors -A | grep "Package id")
+  temperaturaPack=$(echo $IN | tr " " "\n")
+  #inacabado
 }
 
 CPU(){
